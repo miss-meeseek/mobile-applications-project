@@ -7,9 +7,7 @@ import androidx.room.*
 data class Image(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "filename") val filename: String,
-    @ColumnInfo(name = "description") val description: String?,
-    @ColumnInfo(name = "sum_ratings") val sumRatings: Float = 0.0f,
-    @ColumnInfo(name = "no_ratings") val noRatings: Int = 0
+    @ColumnInfo(name = "description") val description: String?
 )
 
 @Dao
@@ -23,20 +21,8 @@ interface ImageDao {
     @Query("SELECT filename FROM image WHERE id = :id")
     fun getFilename(id: Int): String
 
-    @Query("SELECT sum_ratings FROM image WHERE id = :id")
-    fun getRatings(id: Int): Float
-
-    @Query("SELECT no_ratings FROM image WHERE id = :id")
-    fun getNoRatings(id: Int): Int
-
     @Query("SELECT description FROM image WHERE id = :id")
     fun getDescription(id: Int): String
-
-    @Query("UPDATE image SET no_ratings=no_ratings+1 WHERE id = :id")
-    fun incNoRatings(id: Int)
-
-    @Query("UPDATE image SET sum_ratings=sum_ratings+:rating WHERE id = :id")
-    fun incRating(rating: Float, id: Int)
 
     @Query("DELETE FROM image")
     fun deleteAll()
@@ -45,7 +31,7 @@ interface ImageDao {
     fun insertAll(vararg images: Image)
 }
 
-@Database(entities = [Image::class], version = 9)
+@Database(entities = [Image::class], version = 10)
 abstract class GalleryDatabase : RoomDatabase() {
     abstract fun userDao(): ImageDao
 

@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 val desc = data?.getStringExtra("desc")
                 Log.d("IMGd MAIN (onActivityResult)", desc)
                 AsyncTask.execute {
-                    GalleryDatabase.getInstance(this).userDao().insertAll(Image(0, File(path).name, desc, 0.0f, 0))
+                    GalleryDatabase.getInstance(this).userDao().insertAll(Image(0, File(path).name, desc))
                 }
                     (supportFragmentManager.findFragmentById(R.id.titles))
             }

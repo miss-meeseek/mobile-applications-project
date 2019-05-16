@@ -56,27 +56,6 @@ class DetailFragment : Fragment() {
 
         desc_view.text = GalleryDatabase.getInstance(this.context!!).userDao().getDescription(shownIndex+1)
 
-        val ratings = GalleryDatabase.getInstance(this.context!!).userDao().getRatings(shownIndex+1)
-        val no = GalleryDatabase.getInstance(this.context!!).userDao().getNoRatings(shownIndex+1)
-
-        if (no != 0) {
-            rating_det.rating = ratings / no
-
-        } else {
-            rating_det.rating = 0.0f
-        }
-
-        rating_det.setOnRatingBarChangeListener { _, rating, _ ->
-            Log.d("RATING", rating.toString())
-            GalleryDatabase.getInstance(this.context!!).userDao().incNoRatings(shownIndex + 1)
-            GalleryDatabase.getInstance(this.context!!).userDao().incRating(rating, shownIndex + 1)
-            curRating = rating
-            if (dualPane) {
-                (fragmentManager?.findFragmentById(R.id.titles) as ListFragment).notifyDataSetUpdated(shownIndex)
-            } else {
-                (activity as DetailActivity).onSend(shownIndex)
-            }
-        }
     }
 
     companion object {

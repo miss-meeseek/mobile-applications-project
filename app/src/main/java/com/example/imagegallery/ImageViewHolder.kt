@@ -13,7 +13,6 @@ public class ImageViewHolder(
     RecyclerView.ViewHolder(view) {
 
     var viewImg = view.image_small
-    var viewRating = view.ratingBar
 
     fun setText() {
 

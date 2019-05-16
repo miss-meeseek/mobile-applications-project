@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.image_list.*
 
 public class ListFragment : Fragment() {
     private var dualPane: Boolean = false
-    var list: ArrayList<Pair<Int, Float>> = ArrayList()
 
     private lateinit var viewManager: RecyclerView.LayoutManager
     private var curCheckPosition = 0
@@ -27,7 +26,7 @@ public class ListFragment : Fragment() {
         dualPane = detailsFrame?.visibility == View.VISIBLE
         Log.d("DUAL", dualPane.toString())
         if (dualPane) {
-            showDetails(curCheckPosition, list)
+            showDetails(curCheckPosition)
         }
     }
 
@@ -38,19 +37,16 @@ public class ListFragment : Fragment() {
         }
     }
 
-    fun showDetails(pos: Int, list: ArrayList<Pair<Int, Float>>) {
-        val position = list[pos].first
-        curCheckPosition = position
-
+    fun showDetails(pos: Int) {
         if (dualPane) {
             // We can display everything in-place with fragments, so update
             // the list to highlight the selected item and show the data.
-             var details = DetailFragment.newInstance(position)
+             var details = DetailFragment.newInstance(pos)
 
                 // Execute a transaction, replacing any existing fragment
                 // with this one inside the frame.
                 fragmentManager?.beginTransaction()?.apply {
-                    if (position == 0) {
+                    if (pos == 0) {
                         this.replace(R.id.details, details);
                     } else {
                         this.replace(R.id.details, details);
@@ -65,7 +61,7 @@ public class ListFragment : Fragment() {
             // the dialog fragment with selected text.
             val intent = Intent().apply {
                 setClass(activity, DetailActivity::class.java)
-                putExtra("index", position)
+                putExtra("index", pos)
             }
             startActivityForResult(intent, 3)
         }
@@ -82,16 +78,14 @@ public class ListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d("IMGd LIST", recycler_view.toString())
 
-        recreate()
 
         viewManager = GridLayoutManager(activity, 2)
         recycler_view.layoutManager = viewManager
-        recycler_view.adapter = RecyclerAdapter(list, context)
+        recycler_view.adapter = RecyclerAdapter(context)
         recycler_view.addOnItemTouchListener(
             RecyclerItemClickListener(view.context, recycler_view, object : RecyclerItemClickListener.OnItemClickListener {
                 override fun onItemClick(view: View, position: Int) {
-                    Log.d("ABCD ", list[position].first.toString())
-                    showDetails(position, list)
+                    showDetails(position)
                 }
 
                 override fun onLongItemClick(view: View?, position: Int) {
@@ -101,7 +95,7 @@ public class ListFragment : Fragment() {
         )
     }
 
-    fun sort() {
+ /*   fun sort() {
         list.sortWith(Comparator { o1, o2 ->
             when {
                 o1.second < o2.second -> 1
@@ -110,48 +104,23 @@ public class ListFragment : Fragment() {
             }
         })
     }
-
+*/
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt("curChoice", curCheckPosition)
     }
 
-    fun recreate() {
-        val count = GalleryDatabase.getInstance(context!!).userDao().count()
-        list.clear()
-        for (i in 0..count) {
-            val rating = GalleryDatabase.getInstance(context!!).userDao().getRatings(i+1)
-            val no = GalleryDatabase.getInstance(context!!).userDao().getNoRatings(i+1)
-            var pair: Pair<Int, Float>
-            pair = if (no != 0) {
-                Pair(i, rating / no)
-            } else {
-                Pair(i, 0.0f)
-            }
-            list.add(pair)
-        }
-        sort()
-    }
+
 
     fun notifyDataSetChanged() {
-        sort()
         recycler_view.adapter?.notifyDataSetChanged()
     }
 
     fun notifyDataInserted() {
-        sort()
-        val id = recycler_view.adapter?.itemCount!!
-        list.add(Pair(id, 0.0f))
         recycler_view.adapter?.notifyItemInserted(id)
     }
 
     fun notifyDataSetUpdated(i: Int) {
-        val rating = GalleryDatabase.getInstance(context!!).userDao().getRatings(i+1)
-        val no = GalleryDatabase.getInstance(context!!).userDao().getNoRatings(i+1)
-
-        val a = list.filter{ it.first == i }.single()
-        list[list.indexOf(a)] = Pair(i, rating / no)
-        sort()
         recycler_view.adapter?.notifyDataSetChanged()
     }
 }
