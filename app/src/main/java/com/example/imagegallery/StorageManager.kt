@@ -56,6 +56,8 @@ class StorageManager {
             if (!file?.mkdirs()) {
                 Log.e("PhotoPIC", "Directory not created")
             }
+            Log.e("FILENAME", file.toString())
+
             return file
         }
 

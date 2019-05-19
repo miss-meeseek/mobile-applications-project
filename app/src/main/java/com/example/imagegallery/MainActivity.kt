@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         Log.d("IMGd MAIN (onCreate)", Environment.getExternalStorageDirectory().toString())
         val builder = StrictMode.VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
