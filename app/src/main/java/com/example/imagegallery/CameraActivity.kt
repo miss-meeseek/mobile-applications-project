@@ -10,11 +10,15 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import io.fotoapparat.Fotoapparat
 import io.fotoapparat.configuration.CameraConfiguration
 import io.fotoapparat.log.logcat
@@ -22,8 +26,8 @@ import io.fotoapparat.log.loggers
 import io.fotoapparat.parameter.ScaleType
 import io.fotoapparat.selector.*
 import io.fotoapparat.view.CameraView
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.camera_activity.*
+
 import java.io.File
 import java.io.IOException
 
@@ -43,6 +47,8 @@ class CameraActivity : AppCompatActivity() {
         setContentView(R.layout.camera_activity)
         val REQUEST_DESC_PHOTO = 2
 
+
+
         createFotoapparat()
 
         cameraStatus = CameraState.BACK
@@ -60,6 +66,9 @@ class CameraActivity : AppCompatActivity() {
         fab_flash.setOnClickListener {
             changeFlashState()
         }
+
+        val viewPager = findViewById<View>(R.id.viewPager) as ViewPager
+        viewPager.adapter = CustomPageAdapter(this)
     }
 
     private fun createFotoapparat() {

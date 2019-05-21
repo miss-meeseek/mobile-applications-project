@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ImageGallery</string>
+    <string name="one">ImageGallery</string>
+
 </resources>

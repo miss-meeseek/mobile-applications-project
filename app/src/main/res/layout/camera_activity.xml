@@ -7,11 +7,19 @@
         tools:context=".CameraActivity"
         android:background="@android:color/black">
 
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     <io.fotoapparat.view.CameraView
             android:id="@+id/camera_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/fab_camera"/>
+            android:layout_above="@id/fab_camera">
+
+    </io.fotoapparat.view.CameraView>
+
 
     <Button
             android:id="@+id/fab_camera"

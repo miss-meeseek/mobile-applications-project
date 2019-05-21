@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.tbuonomo:creative-viewpager:1.0.1@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-creative-viewpager-1.0.1.aar/486c9a73d9b926c250bd9025ce1e900b/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-creative-viewpager-1.0.1.aar/486c9a73d9b926c250bd9025ce1e900b/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tbuonomo/creative-viewpager/1.0.1/997b350fcd7385c3955dad030a34e8fd40875350/creative-viewpager-1.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
