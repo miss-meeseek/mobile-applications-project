@@ -33,11 +33,12 @@ class GalleryActivity : AppCompatActivity() {
             path = intent?.getStringExtra("path").toString()
             Log.d("IMGd MAIN (onActivityResult)", "")
             AsyncTask.execute {
-                GalleryDatabase.getInstance(this).userDao().insertAll(Image(0, File(path).name, ""))
+                GalleryDatabase.getInstance(this).userDao().insertAll(Image(0, File(path).name))
             }
             (supportFragmentManager.findFragmentById(R.id.titles))
         }
         (supportFragmentManager.findFragmentById(R.id.titles) as ListFragment).notifyDataInserted()
+
         Log.d("IMGd (onActivityResult)", "done")
         Toast.makeText(this,"dodano",Toast.LENGTH_LONG).show()
 
@@ -56,7 +57,13 @@ class GalleryActivity : AppCompatActivity() {
         if (item.itemId == R.id.action_camera) {
             Log.d("IMGd CAMERA (onOptionsItemSelected)", "PRESSED")
             val _intent = Intent(this, CameraActivity::class.java)
-            startActivityForResult(_intent, 2)        }
+            startActivity(_intent)        }
         return true
+    }
+
+    override fun onBackPressed() {
+        val _intent = Intent(this, CameraActivity::class.java)
+        startActivity(_intent)
+        // nothing
     }
 }

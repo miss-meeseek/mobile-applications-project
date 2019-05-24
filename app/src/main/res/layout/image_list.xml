@@ -6,12 +6,6 @@
         android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".CameraActivity">
 
-    <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-    </androidx.viewpager.widget.ViewPager>
-
     <androidx.recyclerview.widget.RecyclerView
            android:id="@+id/recycler_view"
         android:scrollbars="vertical"

@@ -47,8 +47,6 @@ class CameraActivity : AppCompatActivity() {
         setContentView(R.layout.camera_activity)
         val REQUEST_DESC_PHOTO = 2
 
-
-
         createFotoapparat()
 
         cameraStatus = CameraState.BACK
@@ -67,8 +65,8 @@ class CameraActivity : AppCompatActivity() {
             changeFlashState()
         }
 
-        val viewPager = findViewById<View>(R.id.viewPager) as ViewPager
-        viewPager.adapter = CustomPageAdapter(this)
+        //val viewPager = findViewById<View>(R.id.viewPager) as ViewPager
+        //viewPager.adapter = CustomPageAdapter(this)
     }
 
     private fun createFotoapparat() {

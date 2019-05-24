@@ -7,10 +7,6 @@
         tools:context=".CameraActivity"
         android:background="@android:color/black">
 
-    <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
 
     <io.fotoapparat.view.CameraView
             android:id="@+id/camera_view"
@@ -52,5 +48,4 @@
             android:layout_margin="32dp"
             android:layout_alignParentRight="true"
             app:backgroundTint="@android:color/white"/>
-
 </RelativeLayout>

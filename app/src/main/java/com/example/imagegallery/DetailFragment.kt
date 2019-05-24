@@ -53,9 +53,6 @@ class DetailFragment : Fragment() {
             img_det.layoutParams.width = w
             img_det.layoutParams.height = h
         }
-
-        desc_view.text = GalleryDatabase.getInstance(this.context!!).userDao().getDescription(shownIndex+1)
-
     }
 
     companion object {

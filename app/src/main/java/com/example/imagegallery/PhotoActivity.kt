@@ -32,4 +32,8 @@ class PhotoActivity : AppCompatActivity() {
         startActivityForResult(_intent, 2)
     }
 
+    override fun onResume() {
+        Log.d("On resume", "   PhotoActivity ...")
+        super.onResume()
+    }
 }

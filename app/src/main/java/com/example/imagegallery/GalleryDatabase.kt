@@ -6,8 +6,7 @@ import androidx.room.*
 @Entity
 data class Image(
     @PrimaryKey(autoGenerate = true) val id: Int,
-    @ColumnInfo(name = "filename") val filename: String,
-    @ColumnInfo(name = "description") val description: String?
+    @ColumnInfo(name = "filename") val filename: String
 )
 
 @Dao
@@ -21,11 +20,11 @@ interface ImageDao {
     @Query("SELECT filename FROM image WHERE id = :id")
     fun getFilename(id: Int): String
 
-    @Query("SELECT description FROM image WHERE id = :id")
-    fun getDescription(id: Int): String
-
     @Query("DELETE FROM image")
     fun deleteAll()
+
+    @Query("DELETE FROM image WHERE id = :id")
+    fun deletePhoto(id: Int)
 
     @Insert
     fun insertAll(vararg images: Image)
