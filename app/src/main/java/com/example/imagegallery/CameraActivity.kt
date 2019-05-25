@@ -177,14 +177,3 @@ override fun onResume() {
 
 }
 
-enum class CameraState{
-    FRONT, BACK
-}
-
-enum class FlashState{
-    TORCH, OFF
-}
-
-enum class FotoapparatState{
-    ON, OFF
-}
