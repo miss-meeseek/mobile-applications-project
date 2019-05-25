@@ -31,10 +31,10 @@
                     android:resource="@xml/file_paths"/>
         </provider>
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".CameraActivity"
 
         />
-        <activity android:name=".CameraActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
