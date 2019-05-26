@@ -41,7 +41,7 @@ public class ListFragment : Fragment() {
         if (dualPane) {
             // We can display everything in-place with fragments, so update
             // the list to highlight the selected item and show the data.
-             var details = DetailFragment.newInstance(pos)
+             var details = DrawFragment.newInstance(pos)        // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
                 // Execute a transaction, replacing any existing fragment
                 // with this one inside the frame.
@@ -60,7 +60,7 @@ public class ListFragment : Fragment() {
             // Otherwise we need to launch a new activity to display
             // the dialog fragment with selected text.
             val intent = Intent().apply {
-                setClass(activity, DetailActivity::class.java)
+                setClass(activity, DrawActivity::class.java)                // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
                 putExtra("index", pos)
             }
             startActivityForResult(intent, 3)
