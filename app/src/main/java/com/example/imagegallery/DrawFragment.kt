@@ -9,8 +9,6 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.util.Log
 import android.view.*
-import android.widget.ImageView
-import androidx.core.view.GestureDetectorCompat
 import kotlinx.android.synthetic.main.image_draw.*
 import java.io.File
 import java.io.IOException
@@ -18,14 +16,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.io.FileOutputStream
 import java.io.OutputStream
-import android.view.GestureDetector
 import android.view.MotionEvent
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
 
-private const val DEBUG_TAG = "MyApp"
 
-class DrawFragment : Fragment(), View.OnClickListener {
+class DrawFragment : Fragment(), View.OnClickListener,AdapterView.OnItemSelectedListener {
 
 
     private var mPaint = Paint()
@@ -39,6 +34,7 @@ class DrawFragment : Fragment(), View.OnClickListener {
 
 
 
+    var spinner: Spinner? = null
 
 
     val shownIndex: Int by lazy {
@@ -63,6 +59,24 @@ class DrawFragment : Fragment(), View.OnClickListener {
         outState.putFloat("curRating", curRating)
     }
 
+    var colors = arrayOf("Black", "Red", "Blue", "Yellow", "Green", "White")
+
+    override fun onItemSelected(arg0: AdapterView<*>, arg1: View, position: Int, id: Long) {
+        when(position){
+            0 -> mPaint.color = Color.BLACK
+            1 -> mPaint.color = Color.RED
+            2 -> mPaint.color = Color.BLUE
+            3 -> mPaint.color = Color.YELLOW
+            4 -> mPaint.color = Color.GREEN
+            5 -> mPaint.color = Color.WHITE
+            else -> mPaint.color = Color.BLACK
+        }
+    }
+
+    override fun onNothingSelected(arg0: AdapterView<*>) {
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -75,8 +89,20 @@ class DrawFragment : Fragment(), View.OnClickListener {
         val view: View = inflater.inflate(R.layout.image_draw, container, false)
         val btn: Button = view.findViewById(R.id.save)
         btn.setOnClickListener(this)
+
+        spinner = view.findViewById(R.id.spinner_sample)
+        spinner!!.onItemSelectedListener = this
+
+        // Create an ArrayAdapter using a simple spinner layout and colors array
+        val aa = ArrayAdapter(this.context!!, android.R.layout.simple_spinner_item, colors)
+        // Set layout to use when the list of choices appear
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        // Set Adapter to Spinner
+        spinner!!.adapter = aa
+
         return view
     }
+
     private lateinit var drawableBitmap: Bitmap
 
     override fun onClick(v: View?) {
@@ -116,17 +142,13 @@ class DrawFragment : Fragment(), View.OnClickListener {
         if (width > img_det.layoutParams.width)
             options.inSampleSize = Math.round((width /  img_det.layoutParams.width).toDouble()).toInt()
         options.inJustDecodeBounds = false
-        val loadedBitmap = BitmapFactory.decodeFile(path, options)
 
-        drawableBitmap = loadedBitmap.copy(Bitmap.Config.ARGB_8888, true)
+        drawableBitmap = BitmapFactory.decodeFile(path, options).copy(Bitmap.Config.ARGB_8888, true)
 
         img_det.setImageBitmap(drawableBitmap)
 
         //globalBitmap = drawableBitmap
         val canvas =  Canvas(drawableBitmap)
-        val p =  Paint()
-        p.color = Color.BLUE
-        p.textSize = 111f
 
 
         view.setOnTouchListener { v, event ->
