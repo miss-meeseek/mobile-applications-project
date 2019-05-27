@@ -13,7 +13,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
+<<<<<<< HEAD
 
+=======
+>>>>>>> de38ca717af24345259d541be5b6b68312f3f30a
 import io.fotoapparat.Fotoapparat
 import io.fotoapparat.configuration.CameraConfiguration
 import io.fotoapparat.log.logcat
@@ -28,9 +31,12 @@ import kotlinx.android.synthetic.main.camera_activity.*
 import java.io.File
 import java.io.IOException
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> de38ca717af24345259d541be5b6b68312f3f30a
 class CameraFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -83,6 +89,7 @@ class CameraFragment : Fragment() {
             )
         }
     }
+<<<<<<< HEAD
 //    private fun openMap(){
 //        addFragment(MapFragment(), false, "one")
 //    }
@@ -96,6 +103,9 @@ class CameraFragment : Fragment() {
 //        ft.replace(R.id.container_frame_back, fragment, tag)
 //        ft.commitAllowingStateLoss()
 //    }
+=======
+
+>>>>>>> de38ca717af24345259d541be5b6b68312f3f30a
     private fun changeFlashState() {
         fotoapparat?.updateConfiguration(
             CameraConfiguration(
@@ -118,6 +128,10 @@ class CameraFragment : Fragment() {
     }
 
     private fun takePhoto() {
+<<<<<<< HEAD
+=======
+
+>>>>>>> de38ca717af24345259d541be5b6b68312f3f30a
         if (hasNoPermissions()) {
             requestPermission()
         } else {

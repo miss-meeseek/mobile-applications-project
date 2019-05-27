@@ -6,9 +6,13 @@ import androidx.room.*
 @Entity
 data class Image(
     @PrimaryKey(autoGenerate = true) val id: Int,
+<<<<<<< HEAD
     @ColumnInfo(name = "filename") val filename: String,
     @ColumnInfo(name = "lat") val lat : String,
     @ColumnInfo(name = "lng") val lng : String
+=======
+    @ColumnInfo(name = "filename") val filename: String
+>>>>>>> de38ca717af24345259d541be5b6b68312f3f30a
 )
 
 @Dao
@@ -28,6 +32,7 @@ interface ImageDao {
     @Query("DELETE FROM image WHERE id = :id")
     fun deletePhoto(id: Int)
 
+<<<<<<< HEAD
     @Query("SELECT lat FROM image")
     fun getLat(): List<String>
 
@@ -43,6 +48,10 @@ interface ImageDao {
     @Insert
     fun insertAll(vararg images: Image)
 
+=======
+    @Insert
+    fun insertAll(vararg images: Image)
+>>>>>>> de38ca717af24345259d541be5b6b68312f3f30a
 }
 
 @Database(entities = [Image::class], version = 10)

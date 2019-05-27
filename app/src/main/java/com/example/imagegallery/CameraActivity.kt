@@ -66,6 +66,9 @@ class CameraActivity : AppCompatActivity() {
         fab_flash.setOnClickListener {
             changeFlashState()
         }
+
+        //val viewPager = findViewById<View>(R.id.viewPager) as ViewPager
+        //viewPager.adapter = CustomPageAdapter(this)
     }
 
     private fun createFotoapparat() {
