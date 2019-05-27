@@ -1,5 +1,6 @@
 package com.example.imagegallery
 
+import android.content.Context
 import android.graphics.*
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -18,6 +19,17 @@ import java.io.FileOutputStream
 import java.io.OutputStream
 import android.view.MotionEvent
 import android.widget.*
+import android.provider.MediaStore
+import com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage
+import android.media.ExifInterface
+import android.opengl.ETC1.getHeight
+import android.opengl.ETC1.getWidth
+
+
+
+
+
+
 
 
 class DrawFragment : Fragment(), View.OnClickListener,AdapterView.OnItemSelectedListener {
@@ -116,6 +128,58 @@ class DrawFragment : Fragment(), View.OnClickListener,AdapterView.OnItemSelected
         }
     }
 
+    @Throws(IOException::class)
+    private fun rotateImageIfRequired(img: Bitmap, selectedImage: Uri): Bitmap {
+
+        val ei = ExifInterface(selectedImage.path)
+        val orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+
+        when (orientation) {
+            ExifInterface.ORIENTATION_ROTATE_90 -> return rotateImage(img, 90)
+            ExifInterface.ORIENTATION_ROTATE_180 -> return rotateImage(img, 180)
+            ExifInterface.ORIENTATION_ROTATE_270 -> return rotateImage(img, 270)
+            else -> return img
+        }
+    }
+
+    private fun rotateImage(img: Bitmap, degree: Int): Bitmap {
+        val matrix = Matrix()
+        matrix.postRotate(degree.toFloat())
+        val rotatedImg = Bitmap.createBitmap(img, 0, 0, img.width, img.height, matrix, true)
+        img.recycle()
+        return rotatedImg
+    }
+
+    private fun calculateInSampleSize(
+        options: BitmapFactory.Options,
+        reqWidth: Int, reqHeight: Int
+    ): Int {
+        // Raw height and width of image
+        val height = options.outHeight
+        val width = options.outWidth
+        var inSampleSize = 1
+
+        if (height > reqHeight || width > reqWidth) {
+
+            // Calculate ratios of height and width to requested height and width
+            val heightRatio = Math.round(height.toFloat() / reqHeight.toFloat())
+            val widthRatio = Math.round(width.toFloat() / reqWidth.toFloat())
+
+            // Choose the smallest ratio as inSampleSize value, this will guarantee a final image
+            inSampleSize = if (heightRatio < widthRatio) heightRatio else widthRatio
+
+            val totalPixels = (width * height).toFloat()
+
+            // Anything more than 2x the requested pixels we'll sample down further
+            val totalReqPixelsCap = (reqWidth * reqHeight * 2).toFloat()
+
+            while (totalPixels / (inSampleSize * inSampleSize) > totalReqPixelsCap) {
+                inSampleSize++
+            }
+        }
+        return inSampleSize
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         mPaint.apply {
@@ -136,25 +200,42 @@ class DrawFragment : Fragment(), View.OnClickListener,AdapterView.OnItemSelected
             .getFilename(shownIndex+1)
 
 
+
+
+
         val options = BitmapFactory.Options()
+        options.inJustDecodeBounds = true
         options.inMutable = true
+        options.inSampleSize = calculateInSampleSize(options, img_det.maxWidth, img_det.maxHeight)
+
         val width = options.outWidth
+
         if (width > img_det.layoutParams.width)
             options.inSampleSize = Math.round((width /  img_det.layoutParams.width).toDouble()).toInt()
+
         options.inJustDecodeBounds = false
 
         drawableBitmap = BitmapFactory.decodeFile(path, options).copy(Bitmap.Config.ARGB_8888, true)
+        drawableBitmap = rotateImageIfRequired(drawableBitmap,Uri.parse(path))
+
+        val exif = ExifInterface(path)
+        val rotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+        val rotationInDegrees = exifToDegrees(rotation)
+        val matrix = Matrix()
+        if (rotation.toFloat() != 0f) {
+            matrix.preRotate(rotationInDegrees.toFloat())
+            //drawableBitmap = Bitmap.createBitmap(drawableBitmap, 0, 0, drawableBitmap.width, drawableBitmap.height, matrix, true)
+        }
 
         img_det.setImageBitmap(drawableBitmap)
 
-        //globalBitmap = drawableBitmap
         val canvas =  Canvas(drawableBitmap)
 
 
         view.setOnTouchListener { v, event ->
 
-            val x = event.x
-            val y = event.y - 400
+            val x = event.x * 2.3f + 120
+            val y = event.y * 2.3f - 200
 
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -174,6 +255,15 @@ class DrawFragment : Fragment(), View.OnClickListener,AdapterView.OnItemSelected
         //savePhoto(drawableBitmap, img_det)
 
 
+    }
+
+    private fun exifToDegrees(exifOrientation: Int): Int {
+        return when (exifOrientation) {
+            ExifInterface.ORIENTATION_ROTATE_90 -> 90
+            ExifInterface.ORIENTATION_ROTATE_180 -> 180
+            ExifInterface.ORIENTATION_ROTATE_270 -> 270
+            else -> 0
+        }
     }
 
     fun savePhoto(drawableBitmap: Bitmap, img_det: ImageView) {
