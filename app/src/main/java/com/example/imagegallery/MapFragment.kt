@@ -1,6 +1,7 @@
 package com.example.imagegallery
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -105,9 +106,18 @@ class MapFragment : Fragment(){
                             .position(LatLng(x, y))
                             .title("photo:$i")
                             .icon(bitmapDescriptorFromVector(activity as Context, R.drawable.spider))
+
                                 //(bitmapDescriptorFromVector(activity as Context, R.drawable.spider))
                             //(BitmapDescriptorFactory.fromBitmap(image)))
                     )
+                    mMap.setOnMarkerClickListener {
+                        val intent = Intent().apply {
+                            setClass(activity, DrawActivity::class.java)                // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                            putExtra("index", i)
+                        }
+                        startActivity(intent)
+                        true
+                    }
                     //Log.d("FORR", lat.toString())
                     //val path = StorageManager.getPrivateAlbumStorageDir(context!!, "ImageGallery")?.path + "/" +  GalleryDatabase.getInstance(context!!).userDao().getFilename(shownIndex+1)
                 }
