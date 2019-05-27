@@ -38,8 +38,8 @@ class MapFragment : Fragment(){
     var lat : String = "null"
     var lng : String = "null"
     var size :Int = 0
-    var x :Double = 37.0
-    var y : Double  = -122.0
+    var x :Double = 51.112
+    var y : Double  = 17.06
 
 
     override fun onAttach(context: Context?) {
@@ -61,14 +61,10 @@ class MapFragment : Fragment(){
 
             mMap.clear() //clear old markers
 
-
-
-
-
             size = GalleryDatabase.getInstance(this.context!!).userDao().count()
             Log.d("COUNT", size.toString())
 
-            for(i in 1 until size - 1 ){
+            for(i in 1 until size  ){
 
                 lat = GalleryDatabase.getInstance(this.context!!).userDao().getLat(i)
                 lng = GalleryDatabase.getInstance(this.context!!).userDao().getLng(i)

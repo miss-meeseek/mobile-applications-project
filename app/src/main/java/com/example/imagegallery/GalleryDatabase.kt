@@ -45,7 +45,7 @@ interface ImageDao {
 
 }
 
-@Database(entities = [Image::class], version = 11)
+@Database(entities = [Image::class], version = 13)
 abstract class GalleryDatabase : RoomDatabase() {
     abstract fun userDao(): ImageDao
 
