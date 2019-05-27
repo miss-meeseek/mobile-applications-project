@@ -5,10 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".CameraActivity"
-<<<<<<< HEAD
         android:id="@+id/container_frame_back"
-=======
->>>>>>> de38ca717af24345259d541be5b6b68312f3f30a
         android:background="@android:color/black">
 
 

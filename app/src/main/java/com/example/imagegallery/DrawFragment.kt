@@ -182,7 +182,7 @@ class DrawFragment : Fragment(), View.OnClickListener,AdapterView.OnItemSelected
         img_det.setImageURI(uri)
 
         AsyncTask.execute {
-            GalleryDatabase.getInstance(this.context!!).userDao().insertAll(Image(0, File(thePath!!).name))
+            GalleryDatabase.getInstance(this.context!!).userDao().insertAll(Image(0, File(thePath!!).name,  "null", "null") )
         }
     }
     private fun saveImageToExternalStorage(bitmap:Bitmap): String? {

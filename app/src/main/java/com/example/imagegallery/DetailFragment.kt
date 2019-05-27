@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.image_detail.*
 
-
 import androidx.fragment.app.FragmentTransaction
 import kotlinx.android.synthetic.main.image_detail.view.*
 
@@ -76,9 +75,6 @@ class DetailFragment : Fragment() {
         if (container == null) {
             return null
         }
-<<<<<<< HEAD
-        var view: View = inflater.inflate(R.layout.image_detail, container, false)
-=======
         val view: View = inflater!!.inflate(R.layout.image_detail, container, false)
 
         view.draw.setOnClickListener { v ->
@@ -89,28 +85,21 @@ class DetailFragment : Fragment() {
             showDetails(shownIndex, "save")
         }
 
->>>>>>> de38ca717af24345259d541be5b6b68312f3f30a
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-<<<<<<< HEAD
-=======
 
         /*
->>>>>>> de38ca717af24345259d541be5b6b68312f3f30a
         val path = StorageManager.getPrivateAlbumStorageDir(context!!, "ImageGallery")?.path + "/" +  GalleryDatabase.getInstance(context!!).userDao().getFilename(shownIndex+1)
         Glide.with(this).load(path).placeholder(R.drawable.ic_launcher_foreground).into(img_det).getSize { w: Int, h: Int ->
             img_det.layoutParams.width = w
             img_det.layoutParams.height = h
         }
-<<<<<<< HEAD
-=======
         */
 
 
->>>>>>> de38ca717af24345259d541be5b6b68312f3f30a
     }
 
     companion object {
@@ -125,8 +114,5 @@ class DetailFragment : Fragment() {
         }
     }
 
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> de38ca717af24345259d541be5b6b68312f3f30a

@@ -1,6 +1,5 @@
 package com.example.imagegallery
 
-<<<<<<< HEAD
 import android.Manifest
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -33,6 +32,7 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_photo.*
+import kotlinx.android.synthetic.main.fragment_layout.*
 
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -42,31 +42,10 @@ const val FASTEST_INTERVAL: Long = 10000
 
 class PhotoActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
-=======
-import android.content.Intent
-import android.graphics.Bitmap
-import android.os.AsyncTask
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.os.Environment
-import android.os.StrictMode
-import android.util.Log
-import android.view.View
-import android.widget.Toast
-import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_photo.*
-import kotlinx.android.synthetic.main.fragment_layout.*
-import java.io.File
-
-
-
-class PhotoActivity : AppCompatActivity() {
->>>>>>> de38ca717af24345259d541be5b6b68312f3f30a
 
     var TAKE_PHOTO_REQUEST_CODE = 2
     var path = ""
 
-<<<<<<< HEAD
     private var lat: Double? = null
     private var lng: Double? = null
     private var mLocation: Location? = null
@@ -83,16 +62,10 @@ class PhotoActivity : AppCompatActivity() {
         ActivityCompat.requestPermissions(
             this, arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION), 1)
 
-=======
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_photo)
->>>>>>> de38ca717af24345259d541be5b6b68312f3f30a
         path = intent.getStringExtra("path")
         Log.d("IMGd PHOTO (onCreate)", path.toString())
         Glide.with(this.applicationContext).load(path).centerCrop().placeholder(R.drawable.ic_launcher_foreground).into(desc_img)
 
-<<<<<<< HEAD
         mGoogleApiClient = GoogleApiClient.Builder(this)
             .addConnectionCallbacks(this)
             .addOnConnectionFailedListener(this)
@@ -117,34 +90,10 @@ class PhotoActivity : AppCompatActivity() {
             }
             (supportFragmentManager.findFragmentById(R.id.titles))
         }
-=======
-    }
-
-    public fun onSend(view: View) {
-        Log.d("IMGd PHOTO (onSend)", edit_desc.text.toString())
-        Log.d("Path: ", path)
-
-
-
-        // add photo
-        if (path != "") {
-            AsyncTask.execute {
-                GalleryDatabase.getInstance(this).userDao().insertAll(Image(0, File(path).name))
-            }
-            (supportFragmentManager.findFragmentById(R.id.titles))
-        }
-        //(supportFragmentManager!!.findFragmentById(R.id.titles) as ListFragment).notifyDataInserted()
->>>>>>> de38ca717af24345259d541be5b6b68312f3f30a
 
         val builder = StrictMode.VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> de38ca717af24345259d541be5b6b68312f3f30a
         // back to MainActivity
         val _intent = Intent(this, MainActivity::class.java)
         _intent.putExtra("path", com.example.imagegallery.path)
@@ -155,7 +104,6 @@ class PhotoActivity : AppCompatActivity() {
         Log.d("On resume", "   PhotoActivity ...")
         super.onResume()
     }
-<<<<<<< HEAD
     private val isLocationEnabled: Boolean
         get() {
             locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -265,6 +213,4 @@ class PhotoActivity : AppCompatActivity() {
             mGoogleApiClient!!.disconnect()
         }
     }
-=======
->>>>>>> de38ca717af24345259d541be5b6b68312f3f30a
 }

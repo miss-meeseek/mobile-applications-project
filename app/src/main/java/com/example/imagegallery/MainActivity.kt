@@ -52,9 +52,4 @@ class MainActivity : AppCompatActivity() {
 
         return true
     }
-<<<<<<< HEAD
-
-
-=======
->>>>>>> de38ca717af24345259d541be5b6b68312f3f30a
 }

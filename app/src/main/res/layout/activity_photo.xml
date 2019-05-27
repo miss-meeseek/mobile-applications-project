@@ -26,7 +26,6 @@
                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
                app:layout_constraintBottom_toTopOf="@id/send_button"
                android:id="@+id/desc_img"/>
-<<<<<<< HEAD
     <CheckBox
             android:text="Set location"
             android:layout_width="wrap_content"
@@ -35,6 +34,4 @@
             app:layout_constraintTop_toBottomOf="@+id/send_button" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="151dp" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="152dp"/>
-=======
->>>>>>> de38ca717af24345259d541be5b6b68312f3f30a
 </androidx.constraintlayout.widget.ConstraintLayout>
