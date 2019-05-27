@@ -35,8 +35,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val _intent = Intent(this, MainActivity::class.java)
-        startActivity(_intent)
+
+        supportFragmentManager.findFragmentById(0)
+        adapter = ViewPagerAdapter(supportFragmentManager)
+        viewPager.adapter = adapter
+       // val _intent = Intent(this, MainActivity::class.java)
+       // startActivity(_intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -45,10 +49,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        supportFragmentManager.findFragmentById(0)
+        adapter = ViewPagerAdapter(supportFragmentManager)
+        viewPager.adapter = adapter
 
-        Log.d("IMGd CAMERA (onOptionsItemSelected)", "PRESSED")
-        val _intent = Intent(this, MainActivity::class.java)
-        startActivity(_intent)
+        //Log.d("IMGd CAMERA (onOptionsItemSelected)", "PRESSED")
+        //val _intent = Intent(this, MainActivity::class.java)
+        //startActivity(_intent)
 
         return true
     }
